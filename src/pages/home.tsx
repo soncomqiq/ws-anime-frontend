@@ -6,10 +6,10 @@ import Sidebar from "../Sidebar/Sidebar";
 const HomePage = () => {
   // const [anime, setAnime] = useState<IAnimeListItem[]>([]);
   const { anime } = useAnimeListStore();
-  // console.log("anime:", Anime);
+  // // console.log("anime:", Anime);
   // const callData = async () => {
   //   const data = await animeListService.getAnimeList();
-  //   console.log("data", data.data.data);
+  //   // console.log("data", data.data.data);
   //   setAnime(data.data.data);
   // };
 

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { animeListService } from "../services/AnimeList";
-import { animeDetailService } from "../services/AnimeDetail";
 import { useForm } from "react-hook-form";
 import { useAnimeListStore } from "../store/AnimeList";
 import { IAnimeDetailItem } from "../Interface/AnimeDetail";
@@ -22,6 +21,7 @@ const useSearhForm = () => {
     limit: number;
     page: number;
   }) => {
+    if (!filter) return;
     setFetchAnimeList({ data: [], loading: false, error: null });
     const responselist = await animeListService.getAnimeList(
       filter.limit,
@@ -34,18 +34,15 @@ const useSearhForm = () => {
         responseResult = responselist.data.data
       }
       for (const anime of responseResult) {
-        const response = await animeDetailService.getAnimeDetail(anime.mal_id);
-        const animeData = response.data.data;
-        if (animeData)
           animeList.push({
-            ...animeData,
-            image: animeData.images.webp.image_url,
+            ...anime,
+            image: anime.images.webp.image_url,
           });
       }
       setFetchAnimeList({ data: animeList, loading: false, error: null });
       setAnimeList({ data: animeList, loading: false, error: null });
-      console.log("AnimeList:", animeList);
-      console.log("Anime:", fetchAnime);
+      // console.log("AnimeList:", animeList);
+      // console.log("Anime:", fetchAnime);
     } else {
       let error = null;
       if ("error" in responselist) {
@@ -64,28 +61,28 @@ const useSearhForm = () => {
     sort: "id" | "title",
     season: String
   ) => {
-    console.log("keyword:", keyword);
-    console.log("type:", type);
-    console.log("sort:", sort);
-    console.log("season:", season);
+    // console.log("keyword:", keyword);
+    // console.log("type:", type);
+    // console.log("sort:", sort);
+    // console.log("season:", season);
     const keywordFilter = fetchAnime.data.filter((item) =>
       item.title.toLowerCase().includes(keyword?.toLowerCase())
     );
-    console.log("keywordFilter", keywordFilter);
+    // console.log("keywordFilter", keywordFilter);
     const typeFilter =
       type !== "Type"
         ? keywordFilter.filter((item) =>
           item.type.toLowerCase().includes(type.toLowerCase())
         )
         : keywordFilter;
-    console.log("typeFilter:", typeFilter);
+    // console.log("typeFilter:", typeFilter);
     const seasonFilter =
       season !== "Season"
         ? typeFilter.filter((item) =>
           item.season?.toLowerCase().includes(season?.toLowerCase())
         )
         : typeFilter;
-    console.log("seasonFilter:", seasonFilter);
+    // console.log("seasonFilter:", seasonFilter);
     return sortBy(seasonFilter, sort);
   };
 
@@ -102,12 +99,14 @@ const useSearhForm = () => {
     }
   };
   useEffect(() => {
-    callData(AnimeList[animePull]);
+    const data = AnimeList[animePull];
+    console.log("debug data", data)
+    callData(data);
   }, [animePull]);
   useEffect(() => {
     const data = fitlerAnime(keyword, type, sort, season);
     setAnimeList({ data: data, loading: false, error: null });
-    console.log("data", data);
+    // console.log("data", data);
   }, [keyword, type, sort, season]);
   return {
     fieldKeyword: register("keyword"),

@@ -19,7 +19,7 @@ const DetailPage = () => {
   });
   const callData = async (mal_id: number) => {
     const response = await animeDetailService.getAnimeDetail(mal_id);
-    console.log(response.data);
+    // console.log(response.data);
     if (response.status === 200) {
       if (response.data)
         setAnime({
@@ -37,7 +37,7 @@ const DetailPage = () => {
   useEffect(() => {
     callData(Number(mal_id));
   }, [mal_id]);
-  console.log(mal_id);
+  // console.log(mal_id);
   return (
     <div className="bg-gray-700 min-h-[130vh]">
       <div className="w-[90%] m-[auto] max-w-[1100px]">

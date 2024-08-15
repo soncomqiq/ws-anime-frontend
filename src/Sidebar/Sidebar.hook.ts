@@ -14,7 +14,7 @@ const useSideForm = () => {
     const data = fetchAnime.data.filter((item) =>
       item.rating.toLowerCase().includes(rating?.toLowerCase())
     );
-    console.log("data", data);
+    // console.log("data", data);
     setAnimeList({ data: data, loading: false, error: null });
   }, [rating]);
   return {

@@ -9,15 +9,15 @@ const FavoritePage = () => {
 
   useEffect(() => {
     const fetchFavorites = async () => {
-      console.log("Fetching favorites...");
+      // console.log("Fetching favorites...");
       const favoriteIds: number[] = JSON.parse(
         localStorage.getItem(`favorites`) || "[]"
       );
-      console.log(favoriteIds);
+      // console.log(favoriteIds);
       const favoriteData: IAnimeDetailItem[] = [];
 
       if (favoriteIds.length === 0) {
-        console.log("No favorite IDs found.");
+        // console.log("No favorite IDs found.");
         setFavorites(favoriteData);
 
         return;
@@ -36,13 +36,13 @@ const FavoritePage = () => {
               image: result.data.data.images.webp.image_url,
             });
           } else {
-            console.log("Error fetching some of the favorite anime details.");
+            // console.log("Error fetching some of the favorite anime details.");
           }
         });
       } catch (err: any) {
-        console.log("Error fetching some of the favorite anime details.");
+        // console.log("Error fetching some of the favorite anime details.");
       }
-      console.log("Favorite Data:", favoriteData);
+      // console.log("Favorite Data:", favoriteData);
       setFavorites(favoriteData);
     };
 
