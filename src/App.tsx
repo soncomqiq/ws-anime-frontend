@@ -18,7 +18,8 @@ function App() {
       path: "/favorite",
       element: <FavoritePage />,
     },
-  ]);
+  ], { basename: import.meta.env.DEV ? '/' : "/ws-anime-frontend/" });
+
   return (
     <div>
       <RouterProvider router={router} />
