@@ -4,6 +4,7 @@ export interface IAnimeListResponse {
 }
 
 export interface IAnimeDetailItem {
+  data: any;
   mal_id: number;
   url: string;
   images: Images;

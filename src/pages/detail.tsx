@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { IAnimeDetailItem } from "../Interface/AnimeDetail";
 import { animeDetailService } from "../services/AnimeDetail";
 import ReadMore from "../component/ReadMore";
 
 type AnimeType = {
-  data: IAnimeDetailItem;
+  data: IAnimeDetailItem | undefined;
   loading: boolean;
   error: null | any;
 };

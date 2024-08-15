@@ -1,16 +1,14 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { animeListService } from "../services/AnimeList";
 import { animeDetailService } from "../services/AnimeDetail";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useAnimeListStore } from "../store/AnimeList";
 import { IAnimeDetailItem } from "../Interface/AnimeDetail";
 import { AnimeList } from "../Util/OptionList";
 const useSearhForm = () => {
   const {
     register,
-    handleSubmit,
     watch,
-    formState: { errors },
   } = useForm();
   const { fetchAnime, setAnimeList, setFetchAnimeList } = useAnimeListStore();
 
@@ -31,7 +29,10 @@ const useSearhForm = () => {
     );
     const animeList = [];
     if (responselist.status == 200) {
-      const responseResult = responselist.data.data || [];
+      let responseResult = []
+      if ("data" in responselist) {
+        responseResult = responselist.data.data
+      }
       for (const anime of responseResult) {
         const response = await animeDetailService.getAnimeDetail(anime.mal_id);
         const animeData = response.data.data;
@@ -46,10 +47,14 @@ const useSearhForm = () => {
       console.log("AnimeList:", animeList);
       console.log("Anime:", fetchAnime);
     } else {
+      let error = null;
+      if ("error" in responselist) {
+        error = responselist.error
+      }
       setFetchAnimeList({
         data: [],
         loading: false,
-        error: responselist.error,
+        error,
       });
     }
   };
@@ -70,15 +75,15 @@ const useSearhForm = () => {
     const typeFilter =
       type !== "Type"
         ? keywordFilter.filter((item) =>
-            item.type.toLowerCase().includes(type.toLowerCase())
-          )
+          item.type.toLowerCase().includes(type.toLowerCase())
+        )
         : keywordFilter;
     console.log("typeFilter:", typeFilter);
     const seasonFilter =
       season !== "Season"
         ? typeFilter.filter((item) =>
-            item.season?.toLowerCase().includes(season?.toLowerCase())
-          )
+          item.season?.toLowerCase().includes(season?.toLowerCase())
+        )
         : typeFilter;
     console.log("seasonFilter:", seasonFilter);
     return sortBy(seasonFilter, sort);

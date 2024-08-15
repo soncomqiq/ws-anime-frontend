@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { IAnimeDetailItem, IAnimeListResponse } from "../Interface/AnimeDetail";
+import { IAnimeDetailItem } from "../Interface/AnimeDetail";
 
 // const initStore = {
 //   Anime: {

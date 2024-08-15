@@ -1,7 +1,7 @@
 import axios from "axios";
-import { IAnimeDetailItem, IAnimeListResponse } from "../Interface/AnimeDetail";
+import { IAnimeDetailItem } from "../Interface/AnimeDetail";
 import { handleResponse } from "../Util/HandleError";
-interface IGetAnimeDetailResponse extends Response {
+interface IGetAnimeDetailResponse {
   status: number;
   data: IAnimeDetailItem;
 }

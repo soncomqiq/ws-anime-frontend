@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import { animeListService } from "../services/AnimeList";
 import { useAnimeListStore } from "../store/AnimeList";
 
 const Sidebar = () => {
-  const [selectedRadioBtn, setSelectedRadioBtn] =
-    React.useState("G - All Ages");
+  const [selectedRadioBtn, setSelectedRadioBtn] = React.useState("G - All Ages");
 
   const { fetchAnime, setAnimeList } = useAnimeListStore();
   const isRadioSelected = (value: string): boolean =>

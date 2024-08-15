@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import AnimeCard, { AnimeCardProps } from "../AnimeCard/AnimeCard";
-import Searchform from "../component/Searchform";
+import AnimeCard from "../AnimeCard/AnimeCard";
 import { animeDetailService } from "../services/AnimeDetail";
 import { IAnimeDetailItem } from "../Interface/AnimeDetail";
-import { useAnimeListStore } from "../store/AnimeList";
 import { Link } from "react-router-dom";
 
 const FavoritePage = () => {
   const [favorites, setFavorites] = useState<IAnimeDetailItem[]>([]);
-  const { anime } = useAnimeListStore();
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -18,7 +15,6 @@ const FavoritePage = () => {
       );
       console.log(favoriteIds);
       const favoriteData: IAnimeDetailItem[] = [];
-      let fetchError: string | null = null;
 
       if (favoriteIds.length === 0) {
         console.log("No favorite IDs found.");
@@ -40,11 +36,11 @@ const FavoritePage = () => {
               image: result.data.data.images.webp.image_url,
             });
           } else {
-            fetchError = "Error fetching some of the favorite anime details.";
+            console.log("Error fetching some of the favorite anime details.");
           }
         });
       } catch (err: any) {
-        fetchError = "Error fetching some of the favorite anime details.";
+        console.log("Error fetching some of the favorite anime details.");
       }
       console.log("Favorite Data:", favoriteData);
       setFavorites(favoriteData);

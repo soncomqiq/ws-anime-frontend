@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const ReadMore = ({ limit, text }) => {
+const ReadMore = ({ limit, text }: { limit: number, text: string }) => {
   const [isReadMore, setReadMore] = useState(false);
 
   const toggleBtn = () => {
